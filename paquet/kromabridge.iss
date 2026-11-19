@@ -84,12 +84,12 @@ Name: "{autoprograms}\{cm:Manuel}"; Filename: "{app}\doc\Kromabridge Manual (EN)
 Name: "{autodesktop}\Kromabridge"; Filename: "{app}\Kromabridge.bat"; WorkingDir: "{app}"; IconFilename: "{app}\kromalaser.ico"; Tasks: bureau
 
 [Run]
-Filename: "{app}\doc\Fiche Kromabridge (FR).html"; Description: "{cm:OuvrirFiche}"; Flags: postinstall shellexec skipifsilent; Languages: fr
-Filename: "{app}\doc\Kromabridge Quick Reference (EN).html"; Description: "{cm:OuvrirFiche}"; Flags: postinstall shellexec skipifsilent; Languages: en
-Filename: "{app}\doc\Manuel Kromabridge (FR).html"; Description: "{cm:OuvrirManuel}"; Flags: postinstall shellexec skipifsilent unchecked; Languages: fr
-Filename: "{app}\doc\Kromabridge Manual (EN).html"; Description: "{cm:OuvrirManuel}"; Flags: postinstall shellexec skipifsilent unchecked; Languages: en
-Filename: "{app}\doc\Installer la version Raspberry Pi (FR).html"; Description: "{cm:OuvrirPi}"; Flags: postinstall shellexec skipifsilent unchecked; Languages: fr
-Filename: "{app}\doc\Installing the Raspberry Pi version (EN).html"; Description: "{cm:OuvrirPi}"; Flags: postinstall shellexec skipifsilent unchecked; Languages: en
+Filename: "{app}\doc\Fiche Kromabridge (FR).html"; Description: "{cm:OuvrirFiche}"; Flags: postinstall shellexec skipifsilent waituntilidle; Languages: fr
+Filename: "{app}\doc\Kromabridge Quick Reference (EN).html"; Description: "{cm:OuvrirFiche}"; Flags: postinstall shellexec skipifsilent waituntilidle; Languages: en
+Filename: "{app}\doc\Manuel Kromabridge (FR).html"; Description: "{cm:OuvrirManuel}"; Flags: postinstall shellexec skipifsilent waituntilidle unchecked; Languages: fr
+Filename: "{app}\doc\Kromabridge Manual (EN).html"; Description: "{cm:OuvrirManuel}"; Flags: postinstall shellexec skipifsilent waituntilidle unchecked; Languages: en
+Filename: "{app}\doc\Installer la version Raspberry Pi (FR).html"; Description: "{cm:OuvrirPi}"; Flags: postinstall shellexec skipifsilent waituntilidle unchecked; Languages: fr
+Filename: "{app}\doc\Installing the Raspberry Pi version (EN).html"; Description: "{cm:OuvrirPi}"; Flags: postinstall shellexec skipifsilent waituntilidle unchecked; Languages: en
 Filename: "{app}\Kromabridge.bat"; WorkingDir: "{app}"; Description: "{cm:Lancer}"; Flags: postinstall shellexec skipifsilent unchecked
 
 [UninstallDelete]
