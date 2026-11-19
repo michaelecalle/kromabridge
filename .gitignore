@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+# donnees de l'utilisateur (jamais dans le depot)
+presets/
+corbeille/
+listes.json
+parametres.json
+journal.txt
+boitier.json

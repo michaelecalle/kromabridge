@@ -1,0 +1,43 @@
+#!/bin/sh
+# kromabridge-usb : ouvre (monte) ou ejecte la cle USB branchee sur le boitier,
+# pour que Kromabridge puisse y lire et ecrire ses fichiers .kromalaser.
+# Installe dans /usr/local/sbin (root) ; le programme l'appelle par sudo, sans mot
+# de passe, grace a /etc/sudoers.d/kromabridge-usb. Il ne fait rien d'autre.
+set -e
+POINT=/media/kromabridge-usb
+UTILISATEUR="${SUDO_USER:-$(logname 2>/dev/null)}"
+
+premiere_cle() {
+    # Le premier disque branche en USB, puis sa premiere partition (ou le disque
+    # lui-meme s'il n'a pas de table de partitions).
+    DISQUE=$(lsblk -rpno NAME,TRAN,TYPE | awk '$2=="usb" && $3=="disk" {print $1; exit}')
+    [ -n "$DISQUE" ] || return 1
+    PART=$(lsblk -rpno NAME,TYPE "$DISQUE" | awk '$2=="part" {print $1; exit}')
+    [ -n "$PART" ] || PART="$DISQUE"
+    echo "$PART"
+}
+
+case "$1" in
+    monter)
+        if mountpoint -q "$POINT"; then echo "$POINT"; exit 0; fi
+        PART=$(premiere_cle) || { echo "aucune clé USB branchée sur le boîtier" >&2; exit 2; }
+        mkdir -p "$POINT"
+        U=$(id -u "$UTILISATEUR"); G=$(id -g "$UTILISATEUR")
+        FS=$(lsblk -rno FSTYPE "$PART" | head -n 1)
+        case "$FS" in
+            vfat|exfat|ntfs|ntfs3)
+                [ "$FS" = ntfs ] && FS=ntfs3
+                mount -t "$FS" -o "uid=$U,gid=$G,umask=022" "$PART" "$POINT" ;;
+            "")
+                echo "clé USB illisible (pas de système de fichiers reconnu)" >&2; exit 3 ;;
+            *)
+                mount "$PART" "$POINT"; chown "$U:$G" "$POINT" ;;
+        esac
+        echo "$POINT" ;;
+    ejecter)
+        sync
+        if mountpoint -q "$POINT"; then umount "$POINT"; fi
+        echo ok ;;
+    *)
+        echo "usage : kromabridge-usb monter|ejecter" >&2; exit 1 ;;
+esac

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kromabridge — Fiche d'aide</title>
+<style>
+  @page { size: A4; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body { font: 9.4pt/1.28 "Segoe UI", system-ui, sans-serif; color: #111; margin: 0; padding: 12mm; background: #fff; }
+  @media print { body { padding: 0; } .imprimer { display: none; } }
+  h1 { font-size: 18pt; margin: 0 0 2mm; }
+  h1 small { font-size: 10pt; font-weight: normal; color: #555; }
+  h2 { font-size: 11.5pt; margin: 4mm 0 1.5mm; padding-bottom: 1mm; border-bottom: 1.5px solid #c06a00; color: #8a4b00; }
+  .grille { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8mm; }
+  table { border-collapse: collapse; width: 100%; }
+  td { padding: 1mm 1.5mm; vertical-align: top; border-bottom: 1px solid #e3e3e3; }
+  td:first-child { white-space: nowrap; font-weight: 600; width: 1%; }
+  ul { margin: 0; padding-left: 4.5mm; }
+  li { margin: 0.6mm 0; }
+  .note { font-size: 9pt; color: #444; }
+  .imprimer { position: fixed; top: 8px; right: 8px; font: inherit; padding: 6px 12px; }
+  footer { margin-top: 4mm; font-size: 8.5pt; color: #666; text-align: center; }
+</style>
+</head>
+<body>
+<button class="imprimer" onclick="window.print()">Imprimer / PDF</button>
+<h1>Kromabridge <small>— fiche d'aide · version 1.0</small></h1>
+<div class="note">Version PC : raccourci <b>Kromabridge</b> du bureau. Version Raspberry Pi : Wi-Fi <b>Kromalaser</b> (mot de passe kromalaser), puis <b>http://10.42.0.1:8080</b>.</div>
+
+<div class="grille">
+<div>
+<h2>La barre du haut</h2>
+<table>
+<tr><td>▲ ▼ + nom</td><td>Liste de morceaux précédente / suivante, et son nom (« Tous » : aucune liste)</td></tr>
+<tr><td>◀ ▶ + titre</td><td>Morceau précédent / suivant (dans la liste active), son titre et sa place</td></tr>
+<tr><td>Ouvrir / Fermer</td><td>Allume ou éteint l'éventail de la harpe</td></tr>
+<tr><td>Morceau</td><td>Ouvrir, Gérer les morceaux, nouveau, enregistrer sous, renommer, supprimer, corbeille, import MIDI, export / import de morceaux</td></tr>
+<tr><td>Listes</td><td>Choisir une liste, Gérer les listes…, export / import de listes</td></tr>
+<tr><td>Apprentissage</td><td>Créer les rayons au clavier, Changer un rayon au clavier</td></tr>
+<tr><td>🔇</td><td>Activer le son de la harpe sur cet appareil</td></tr>
+<tr><td>🛑 Panique</td><td>Coupe toutes les notes, même tenues par la pédale</td></tr>
+<tr><td>⏻</td><td>Éteindre le Pi (attendre « Vous pouvez couper l'alimentation »)</td></tr>
+<tr><td>⚙</td><td>Paramètres de l'application, de la harpe, À propos (point orange = réglages non mémorisés)</td></tr>
+</table>
+
+<h2>Les rayons (une case par rayon)</h2>
+<ul>
+<li>Toucher le <b>nom de la note</b> : choisir une autre note.</li>
+<li><b>-12 -1 +1 +12</b> : octave / demi-ton ; <b>Tous les rayons</b> : décaler tout, ou ranger du grave à l'aigu.</li>
+<li><b>Accord</b> : plusieurs notes pour un rayon.</li>
+<li><b>✕</b> : supprimer ce rayon (les suivants se décalent ; 5 rayons minimum).</li>
+<li>Couper un rayon allume sa case.</li>
+</ul>
+
+<h2>Le morceau</h2>
+<ul>
+<li>Tout est enregistré <b>immédiatement</b>.</li>
+<li>Nombre de rayons (5 à 15), canal MIDI de sortie.</li>
+<li><b>Changer le son du synthé</b> : programme (+ banque) envoyé au chargement ; par partie si le morceau a des parties.</li>
+<li><b>Animation d'ouverture</b>, <b>transition entre les parties</b>.</li>
+<li>Parties <b>A, B, C…</b> : toucher pour changer ; <b>＋</b> ajouter (vierge ou copie) ; glisser pour réordonner ; <b>－</b> supprimer. Le morceau repart toujours de A.</li>
+<li><b>Gérer les morceaux…</b> : ouvrir, renommer, supprimer ; cocher pour supprimer ou créer une liste.</li>
+<li>Pi : <b>clé USB</b> pour l'export / import (case « Enregistrer sur la clé », « Importer depuis la clé USB… », puis <b>Éjecter la clé</b>).</li>
+</ul>
+</div>
+
+<div>
+<h2>Piste de contrôle (DAW) — canal 16</h2>
+<table>
+<tr><td>Programme n</td><td>Charge le morceau n° n</td></tr>
+<tr><td>C-2 (do-1)</td><td>Ouvrir la harpe</td></tr>
+<tr><td>C#-2 (do#-1)</td><td>Fermer la harpe</td></tr>
+<tr><td>C-1, C#-1, D-1…</td><td>Parties A, B, C…</td></tr>
+</table>
+<div class="note">PC : sortie vers le port <b>Controle Harpe</b>. Pi : vers son entrée MIDI. Case « Contrôle par le DAW » dans les paramètres. Le n° d'un morceau = sa place dans « Tous les morceaux ».</div>
+
+<h2>Listes de morceaux</h2>
+<ul>
+<li><b>Listes &gt; Gérer les listes…</b> : créer, renommer, ajouter des morceaux.</li>
+<li>Réordonner : poignée <b>☰</b> (glisser) ou flèches ↑ ↓, puis <b>Valider</b>.</li>
+<li><b>Exporter / Importer des listes…</b> : une liste ou toutes, avec leurs morceaux.</li>
+<li>Changer l'ordre de « Tous les morceaux » change les numéros : l'application propose de réexporter les pistes de contrôle.</li>
+</ul>
+
+<h2>Réglages de la harpe (⚙)</h2>
+<ul>
+<li><b>Lire la harpe</b>, puis modifier : envoyé tout de suite, en orange tant que non mémorisé.</li>
+<li><b>Mémoriser dans ce morceau</b> / <b>dans tous</b> / <b>Rétablir</b>.</li>
+<li>Case <b>commun à tous les morceaux</b> : pour les réglages du lieu (largeur, sensibilité…).</li>
+<li>Bouton <b>?</b> : explication de chaque réglage.</li>
+<li>Onglet <b>Couleurs</b> : choisir les couleurs, l'application règle les lasers.</li>
+</ul>
+
+<h2>Apprentissage au clavier</h2>
+<ul>
+<li><b>Créer les rayons</b> : jouer les notes, puis Terminer.</li>
+<li><b>Changer un rayon</b> : couper le rayon (ou toucher sa case), jouer la note ; Garder / Annuler.</li>
+</ul>
+
+<h2>Raccourcis (PC)</h2>
+<table>
+<tr><td>← →</td><td>Morceau précédent / suivant</td></tr>
+<tr><td>↑ ↓</td><td>Liste précédente / suivante</td></tr>
+<tr><td>Échap</td><td>Panique</td></tr>
+</table>
+</div>
+</div>
+
+<footer>Kromabridge — créé par Michael avec Claude</footer>
+</body>
+</html>

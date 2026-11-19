@@ -1,0 +1,16 @@
+#!/bin/sh
+# kromabridge-heure : met l'horloge du Pi a l'heure de l'appareil qui affiche la
+# page (le Pi n'a pas de pile pour garder l'heure, et pas d'Internet sur son
+# propre reseau). Installe dans /usr/local/sbin (root) ; le programme l'appelle
+# par sudo, sans mot de passe, grace a /etc/sudoers.d/kromabridge-heure.
+# Il ne fait rien d'autre, et rien du tout si le Pi est deja a l'heure par Internet.
+set -e
+case "$1" in
+    ''|*[!0-9]*) echo "heure invalide" >&2; exit 2 ;;
+esac
+if [ "$(timedatectl show -p NTPSynchronized --value 2>/dev/null)" = yes ]; then
+    echo "déjà à l'heure (Internet)"
+    exit 0
+fi
+date -s "@$1" >/dev/null
+echo "ok"

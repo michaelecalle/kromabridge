@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kromabridge — Quick reference</title>
+<style>
+  @page { size: A4; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body { font: 9.4pt/1.28 "Segoe UI", system-ui, sans-serif; color: #111; margin: 0; padding: 12mm; background: #fff; }
+  @media print { body { padding: 0; } .imprimer { display: none; } }
+  h1 { font-size: 18pt; margin: 0 0 2mm; }
+  h1 small { font-size: 10pt; font-weight: normal; color: #555; }
+  h2 { font-size: 11.5pt; margin: 4mm 0 1.5mm; padding-bottom: 1mm; border-bottom: 1.5px solid #c06a00; color: #8a4b00; }
+  .grille { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8mm; }
+  table { border-collapse: collapse; width: 100%; }
+  td { padding: 1mm 1.5mm; vertical-align: top; border-bottom: 1px solid #e3e3e3; }
+  td:first-child { white-space: nowrap; font-weight: 600; width: 1%; }
+  ul { margin: 0; padding-left: 4.5mm; }
+  li { margin: 0.6mm 0; }
+  .note { font-size: 9pt; color: #444; }
+  .imprimer { position: fixed; top: 8px; right: 8px; font: inherit; padding: 6px 12px; }
+  footer { margin-top: 4mm; font-size: 8.5pt; color: #666; text-align: center; }
+</style>
+</head>
+<body>
+<button class="imprimer" onclick="window.print()">Print / PDF</button>
+<h1>Kromabridge <small>— quick reference · version 1.0</small></h1>
+<div class="note">PC version: <b>Kromabridge</b> desktop shortcut. Raspberry Pi version: Wi-Fi <b>Kromalaser</b> (password kromalaser), then <b>http://10.42.0.1:8080</b>.</div>
+
+<div class="grille">
+<div>
+<h2>Top bar</h2>
+<table>
+<tr><td>▲ ▼ + name</td><td>Previous / next song list, and its name ("All": no list)</td></tr>
+<tr><td>◀ ▶ + title</td><td>Previous / next song (in the active list), its title and place</td></tr>
+<tr><td>Open / Close</td><td>Switches the harp fan on or off</td></tr>
+<tr><td>Song</td><td>Open, Manage songs, new, save as, rename, delete, trash, MIDI import, song export / import</td></tr>
+<tr><td>Lists</td><td>Choose a list, Manage lists…, list export / import</td></tr>
+<tr><td>Learning</td><td>Create beams from keyboard, Change a beam from keyboard</td></tr>
+<tr><td>🔇</td><td>Enable the harp sound on this device</td></tr>
+<tr><td>🛑 Panic</td><td>Cuts every note, even those held by the pedal</td></tr>
+<tr><td>⏻</td><td>Shut the Pi down (wait for the "you can cut the power" message)</td></tr>
+<tr><td>⚙</td><td>App settings, harp settings, About (orange dot = settings not stored)</td></tr>
+</table>
+
+<h2>Beams (one tile per beam)</h2>
+<ul>
+<li>Tap the <b>note name</b>: choose another note.</li>
+<li><b>-12 -1 +1 +12</b>: octave / semitone; <b>All beams</b>: shift everything, or sort from low to high.</li>
+<li><b>Chord</b>: several notes for one beam.</li>
+<li><b>✕</b>: delete this beam (the following ones move left; 5 beams minimum).</li>
+<li>Cutting a beam lights up its tile.</li>
+</ul>
+
+<h2>The song</h2>
+<ul>
+<li>Everything is saved <b>immediately</b>.</li>
+<li>Number of beams (5 to 15), MIDI output channel.</li>
+<li><b>Change the synth sound</b>: program (+ bank) sent on loading; per part if the song has parts.</li>
+<li><b>Opening animation</b>, <b>transition between parts</b>.</li>
+<li>Parts <b>A, B, C…</b>: tap to change; <b>＋</b> add (blank or copy); drag to reorder; <b>－</b> delete. The song always starts from A.</li>
+<li><b>Manage songs…</b>: open, rename, delete; tick to delete or create a list.</li>
+<li>Pi: <b>USB key</b> for export / import ("Save to the Pi USB key" box, "Import from the USB key…", then <b>Eject the key</b>).</li>
+</ul>
+</div>
+
+<div>
+<h2>Control track (DAW) — channel 16</h2>
+<table>
+<tr><td>Program n</td><td>Loads song number n</td></tr>
+<tr><td>C-2 (DAW)</td><td>Open the harp</td></tr>
+<tr><td>C#-2 (DAW)</td><td>Close the harp</td></tr>
+<tr><td>C-1, C#-1, D-1…</td><td>Parts A, B, C…</td></tr>
+</table>
+<div class="note">PC: output to the <b>Controle Harpe</b> port. Pi: to its MIDI input. "Control from the DAW" box in the settings. A song's number = its place in "All songs".</div>
+
+<h2>Song lists</h2>
+<ul>
+<li><b>Lists &gt; Manage lists…</b>: create, rename, add songs.</li>
+<li>Reorder: <b>☰</b> handle (drag) or ↑ ↓ arrows, then <b>Apply</b>.</li>
+<li><b>Export / Import lists…</b>: one list or all, with their songs.</li>
+<li>Changing the order of "All songs" changes the numbers: the application offers to re-export the control tracks.</li>
+</ul>
+
+<h2>Harp settings (⚙)</h2>
+<ul>
+<li><b>Read the harp</b>, then edit: sent at once, orange until stored.</li>
+<li><b>Store in this song</b> / <b>in all songs</b> / <b>Restore</b>.</li>
+<li><b>Common to all songs</b> box: for venue settings (width, sensitivity…).</li>
+<li><b>?</b> button: explanation of each setting.</li>
+<li><b>Colors</b> tab: choose the colours, the application sets the lasers.</li>
+</ul>
+
+<h2>Keyboard learning</h2>
+<ul>
+<li><b>Create beams</b>: play the notes, then Finish.</li>
+<li><b>Change a beam</b>: cut the beam (or tap its tile), play the note; Keep / Undo.</li>
+</ul>
+
+<h2>Shortcuts (PC)</h2>
+<table>
+<tr><td>← →</td><td>Previous / next song</td></tr>
+<tr><td>↑ ↓</td><td>Previous / next list</td></tr>
+<tr><td>Esc</td><td>Panic</td></tr>
+</table>
+</div>
+</div>
+
+<footer>Kromabridge — created by Michael with Claude</footer>
+</body>
+</html>
