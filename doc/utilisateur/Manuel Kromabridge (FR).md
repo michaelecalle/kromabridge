@@ -1,6 +1,6 @@
 # Kromabridge — Manuel d'utilisation
 
-*Version 1.0 — 19/11/2026*
+*Version 1.1 — 21/11/2026*
 
 Kromabridge est le pont entre une harpe laser Kromalaser et vos synthétiseurs. Il choisit la note jouée par chaque rayon, organise vos morceaux et vos listes de morceaux, pilote la harpe (ouverture, fermeture, réglages) et peut être commandé depuis votre logiciel de musique (DAW) ou un séquenceur.
 

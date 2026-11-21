@@ -98,6 +98,9 @@ class ProcHarpControl:
         self.on_sent = None
         self.injoignable = False
         self.on_erreur = None
+        # augmente a chaque echec d'envoi : l'ecoute de la harpe rouvre alors son
+        # entree (harpe eteinte puis rallumee pendant que Kromabridge tourne)
+        self.erreurs = 0
 
     def _demarrer(self) -> None:
         import queue
@@ -148,11 +151,13 @@ class ProcHarpControl:
             if reponse is None:
                 self._arreter()
                 self.injoignable = True
+                self.erreurs += 1
                 if self.on_erreur is not None:
                     self.on_erreur("harpe injoignable : elle ne répond plus")
                 raise MidiError("harpe injoignable : elle ne répond plus")
             if reponse.startswith("err"):
                 self._name = None
+                self.erreurs += 1
                 raise MidiError("harpe injoignable : " + reponse[4:])
             self.injoignable = False
             self._name = reponse[3:]
@@ -202,6 +207,7 @@ class RtHarpListener:
         self._stop = threading.Event()
         self.connected = False
         self.last_read_ns = 0
+        self._erreurs_vues = 0
 
     def _callback(self, event, _data=None) -> None:
         message, _delta = event
@@ -211,6 +217,13 @@ class RtHarpListener:
 
     def check(self) -> None:
         """Ouvre l'entree de la harpe si elle est la et pas encore ouverte."""
+        erreurs = getattr(self.control, "erreurs", 0)
+        if erreurs != self._erreurs_vues:
+            # l'envoi vers la harpe a echoue : on repart d'une entree neuve
+            self._erreurs_vues = erreurs
+            _release(self._in)
+            self._in = None
+            self._name = None
         if self._in is None:
             self._in = (self._factory or _require_rtmidi().MidiIn)()
             self._in.ignore_types(sysex=False, timing=False, active_sense=True)

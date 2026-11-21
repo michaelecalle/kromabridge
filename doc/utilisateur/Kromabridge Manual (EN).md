@@ -1,6 +1,6 @@
 # Kromabridge — User manual
 
-*Version 1.0 — 19/11/2026*
+*Version 1.1 — 21/11/2026*
 
 Kromabridge is the bridge between a Kromalaser laser harp and your synthesizers. It chooses the note played by each beam, organises your songs and song lists, controls the harp (opening, closing, settings) and can be driven from your music software (DAW) or a sequencer.
 

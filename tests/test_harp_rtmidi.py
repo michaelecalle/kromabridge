@@ -59,3 +59,21 @@ def test_listener_reads_continuously_keeps_sysex_and_follows_the_harp():
     inp.ports = ["loopMIDI Port Kromabridge 1"]          # harpe debranchee
     ecoute.check()
     assert not ecoute.connected and inp.opened is None
+
+
+def test_listener_reopens_after_a_send_failure():
+    crees = []
+
+    def fabrique():
+        crees.append(FakePort(PORTS))
+        return crees[-1]
+
+    controle = RtHarpControl(factory=lambda: FakePort(PORTS))
+    ecoute = RtHarpListener(controle, factory=fabrique)
+    ecoute.check()
+    assert len(crees) == 1 and crees[0].opened == 1
+    ecoute.check()
+    assert len(crees) == 1                       # rien ne change tant que tout va bien
+    controle.erreurs = 1                         # un envoi a echoue (harpe rallumee)
+    ecoute.check()
+    assert len(crees) == 2 and crees[1].opened == 1

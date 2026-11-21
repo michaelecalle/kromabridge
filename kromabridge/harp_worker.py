@@ -47,6 +47,15 @@ def main() -> int:
             sys.stdout.write("ok " + nom + "\n")
         except Exception as exc:          # on repond toujours, sauf blocage
             nom = None
+            # Harpe eteinte puis rallumee : sous Windows, l'ancien objet MIDI reste
+            # inutilisable ("error preparing sysex header"). On en recree un neuf.
+            try:
+                if sortie.is_port_open():
+                    sortie.close_port()
+            except Exception:
+                pass
+            del sortie
+            sortie = rtmidi.MidiOut()
             sys.stdout.write("err " + str(exc).replace("\n", " ") + "\n")
         sys.stdout.flush()
     return 0

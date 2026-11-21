@@ -1,89 +1,51 @@
 # Installer la version Raspberry Pi de Kromabridge
 
-*Version 1.0 — 19/11/2026*
+*Version 1.1 — 21/11/2026*
 
-La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthétiseur, sans ordinateur. On l'installe une seule fois, depuis un PC relié à Internet. Comptez une demi-heure.
+La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthétiseur, sans ordinateur. On prépare la carte microSD une seule fois, depuis n'importe quel ordinateur relié à Internet. Comptez un quart d'heure, sans aucune ligne de commande.
 
 ## Ce qu'il vous faut
 
-- un **Raspberry Pi 4** (Kromabridge a été testé sur ce modèle ; le Pi 3 et le Pi 5 devraient convenir, mais n'ont pas été testés) et son **alimentation officielle** ;
-- une **carte microSD** de 16 Go ou plus, et un lecteur de carte pour le PC ;
-- une **interface MIDI USB** (un câble USB-MIDI, par exemple) pour relier le Pi au synthétiseur ;
-- un PC Windows relié à Internet, et le nom et le mot de passe de votre Wi-Fi.
+- un **Raspberry Pi** (Kromabridge a été testé sur un Raspberry Pi 4 ; le Pi 3 et le Pi 5 devraient convenir, mais n'ont pas été testés) et son **alimentation officielle** ;
+- une **carte microSD** de 16 Go ou plus, et un lecteur de carte pour l'ordinateur ;
+- une **interface MIDI USB** (un câble USB-MIDI, par exemple) pour relier le Pi au synthétiseur.
 
-## 1. Préparer la carte microSD
+> Le Raspberry Pi n'a pas de prise MIDI : l'interface MIDI USB se branche sur une de ses prises USB. Une carte MIDI branchée sur les broches GPIO du Pi n'a pas été testée et peut demander une configuration supplémentaire.
 
-1. Sur le PC, téléchargez et installez **Raspberry Pi Imager** depuis le site officiel : https://www.raspberrypi.com/software/
-2. Mettez la carte microSD dans le lecteur du PC, puis lancez Raspberry Pi Imager.
+## 1. Télécharger l'image Kromabridge
+
+Sur la page des versions, https://github.com/michaelecalle/kromabridge/releases/latest, téléchargez le fichier **kromabridge-pi-….img.xz** (dans « Assets », en bas de la page). Ne le décompressez pas.
+
+## 2. Écrire la carte microSD
+
+1. Téléchargez et installez **Raspberry Pi Imager** depuis le site officiel : https://www.raspberrypi.com/software/
+2. Mettez la carte microSD dans le lecteur de l'ordinateur, puis lancez Raspberry Pi Imager.
 3. Choisissez :
-   - **Appareil** : le modèle de Raspberry Pi que vous utilisez (Kromabridge a été testé sur le Pi 4) ;
-   - **Système d'exploitation** : *Raspberry Pi OS (other)*, puis **Raspberry Pi OS Lite (64-bit)** ;
+   - **Appareil** : le modèle de Raspberry Pi que vous utilisez ;
+   - **Système d'exploitation** : tout en bas de la liste, **Utiliser une image personnalisée**, puis le fichier **kromabridge-pi-….img.xz** téléchargé ;
    - **Stockage** : votre carte microSD.
-4. Imager propose de **personnaliser** le système (bouton « Modifier les réglages », ou étapes successives selon la version d'Imager). Réglez :
-   - **localisation** : votre pays, votre **fuseau horaire** (Europe/Paris) et votre clavier ;
-   - **nom d'hôte** : `kromabridge` ;
-   - **nom d'utilisateur** et **mot de passe** : choisissez-les et **notez-les**, ils vous serviront juste après ;
-   - **Wi-Fi** : le nom et le mot de passe de votre Wi-Fi ;
-   - **SSH** (onglet **Services** selon la version) : **activez-le**, avec authentification par mot de passe ;
-   - **Raspberry Pi Connect**, s'il est proposé : **laissez-le désactivé**, Kromabridge n'en a pas besoin.
-5. Lancez l'écriture et attendez la fin (quelques minutes). Retirez la carte.
+4. Si Imager propose de **personnaliser** le système, répondez **Non** : tout est déjà réglé dans l'image.
+5. Lancez l'écriture, confirmez l'effacement de la carte, et attendez la fin (quelques minutes). Retirez la carte.
 
-## 2. Démarrer le Pi
+## 3. Démarrer le Pi
 
 1. Mettez la carte microSD dans le Pi.
-2. Branchez l'alimentation. Attendez **deux minutes** : au premier démarrage, le Pi se prépare et rejoint votre Wi-Fi.
+2. Branchez la harpe sur le Pi en USB, et l'interface MIDI USB entre le Pi et votre synthétiseur.
+3. Branchez l'alimentation. Le premier démarrage prend **deux à trois minutes** (le Pi se prépare et redémarre parfois une fois tout seul).
 
-## 3. Se connecter au Pi depuis le PC
+## 4. Ouvrir Kromabridge
 
-1. Sur le PC, faites un **clic droit sur le bouton Démarrer**, puis choisissez **Terminal** (sous Windows 10 : **Windows PowerShell**).
-2. Tapez la commande suivante, en remplaçant **VOTRE-NOM** par le **nom d'utilisateur que vous avez choisi à l'étape 1**, puis Entrée :
-
-   ```
-   ssh VOTRE-NOM@kromabridge.local
-   ```
-
-   Par exemple, si votre nom d'utilisateur est « harpiste » : `ssh harpiste@kromabridge.local`
-
-3. La première fois, une question demande si vous faites confiance à cet appareil : tapez `yes`, puis Entrée.
-4. Tapez le **mot de passe que vous avez choisi à l'étape 1**, puis Entrée. **Rien ne s'affiche pendant que vous tapez** : c'est normal.
-
-> Si `kromabridge.local` n'est pas trouvé, attendez encore une minute et réessayez. Sinon, cherchez l'adresse du Pi dans la page de votre box (appareils connectés) et utilisez-la à la place, par exemple `ssh VOTRE-NOM@192.168.1.42`.
-
-## 4. Installer Kromabridge
-
-Copiez cette commande, collez-la dans le Terminal (clic droit), puis Entrée :
-
-```
-curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/installer-pi.sh | sudo bash
-```
-
-Le Pi redemande le même mot de passe, puis installe tout seul ce qu'il faut (quelques minutes). À la fin s'affiche « Kromabridge est installé ».
-
-Une minute plus tard, le Pi quitte le Wi-Fi de la maison et crée son propre réseau, **Kromalaser** : la connexion SSH se coupe, c'est normal. Vous pouvez fermer le Terminal.
-
-## 5. Éteindre le Pi pour le déplacer
-
-Si le Pi doit rejoindre la harpe ailleurs, ne coupez jamais l'alimentation directement :
-
-1. Connectez votre appareil (portable, tablette, téléphone) au Wi-Fi **Kromalaser** (mot de passe : `kromalaser`).
+1. Sur une tablette, un téléphone ou un ordinateur, connectez-vous au réseau Wi-Fi **Kromalaser** (mot de passe : `kromalaser`).
 
    > Sur un PC Windows, la première fois, Windows demande parfois un **code PIN** : cliquez alors sur « **Se connecter à l'aide d'une clé de sécurité** » (ou « … d'un mot de passe », selon la version), puis tapez `kromalaser`.
 2. Ouvrez **http://10.42.0.1:8080** dans le navigateur.
-3. Touchez le bouton **⏻** en haut à droite, puis confirmez.
-4. Attendez le message « Vous pouvez couper l'alimentation », puis débranchez.
-
-Rallumé près de la harpe, le Pi recrée tout seul son réseau Kromalaser. Pensez à reconnecter votre appareil à votre Wi-Fi habituel.
-
-## 6. Premier essai
-
-1. Branchez la harpe sur le Pi en USB, et l'interface MIDI USB entre le Pi et votre synthétiseur.
-2. Sur une tablette, un téléphone ou un PC, connectez-vous au réseau Wi-Fi **Kromalaser** (mot de passe : `kromalaser`).
-
-   > Sur un PC Windows, la première fois, Windows demande parfois un **code PIN** : cliquez alors sur « **Se connecter à l'aide d'une clé de sécurité** » (ou « … d'un mot de passe », selon la version), puis tapez `kromalaser`.
-3. Ouvrez **http://10.42.0.1:8080** dans le navigateur.
-4. Dans ⚙ > **Paramètres de l'application** > **Sortie MIDI des notes de la harpe**, choisissez votre interface MIDI.
+3. Dans ⚙ > **Paramètres de l'application** > **Sortie MIDI des notes de la harpe**, choisissez votre interface MIDI.
 
 C'est prêt. La suite est dans le manuel de Kromabridge.
+
+## 5. Éteindre le Pi
+
+Ne coupez jamais l'alimentation directement : dans la page de Kromabridge, touchez le bouton **⏻** en haut à droite, confirmez, et attendez le message « Vous pouvez couper l'alimentation ». Au rallumage, le Pi recrée tout seul son réseau Kromalaser.
 
 ## Les mises à jour
 
@@ -93,6 +55,15 @@ Quand une nouvelle version paraît, un bandeau vert le signale en haut de la pag
 2. Dans la page du Pi : ⚙ > **Mettre à jour le Pi…**, puis **Choisir le fichier…** (ou **Depuis la clé USB du Pi**, si vous avez copié le fichier sur une clé branchée sur le Pi).
 
 Vos morceaux, listes et réglages ne sont jamais touchés. En cas de souci, la même fenêtre permet de **revenir à la version précédente**.
+
+## Pour les utilisateurs avancés
+
+- **Accès SSH** : connecté au réseau Kromalaser, `ssh kromalaser@10.42.0.1` (mot de passe `kromalaser`). Changez ce mot de passe avec la commande `passwd` si vous le souhaitez.
+- **Installer Kromabridge sur un Raspberry Pi OS existant** (plutôt que l'image) : le Pi relié à Internet, connecté en SSH avec votre propre compte, tapez :
+
+  ```
+  curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/installer-pi.sh | sudo bash
+  ```
 
 ---
 
