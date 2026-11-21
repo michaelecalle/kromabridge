@@ -61,7 +61,18 @@ The Pi asks for the same password again, then installs everything it needs by it
 
 One minute later, the Pi leaves your home Wi-Fi and creates its own network, **Kromalaser**: the SSH connection drops, that is normal. You can close the Terminal.
 
-## 5. First try
+## 5. Shutting the Pi down to move it
+
+If the Pi has to join the harp somewhere else, never cut the power directly:
+
+1. Connect your device (laptop, tablet, phone) to the **Kromalaser** Wi-Fi (password: `kromalaser`).
+2. Open **http://10.42.0.1:8080** in the browser.
+3. Tap the **⏻** button at the top right, then confirm.
+4. Wait for the message telling you that you can cut the power, then unplug.
+
+Switched on again near the harp, the Pi recreates its Kromalaser network by itself. Remember to reconnect your device to your usual Wi-Fi.
+
+## 6. First try
 
 1. Connect the harp to the Pi by USB, and the USB MIDI interface between the Pi and your synthesizer.
 2. On a tablet, phone or PC, connect to the **Kromalaser** Wi-Fi network (password: `kromalaser`).
