@@ -47,6 +47,8 @@ Note functions only need the harp's MIDI notes: they should work with every mode
 2. Switch the Pi on. After about one minute, it creates the **Kromalaser** Wi-Fi network (password: `kromalaser`).
 3. Connect the device of your choice to this network (tablet, phone, computer: any device with Wi-Fi and a web browser), then open **http://10.42.0.1:8080** in the browser.
 
+   > On a Windows PC, the first time, Windows sometimes asks for a **PIN**: then click « **Connect using a security key instead** » (or « … a password », depending on the version), and type `kromalaser`.
+
 > Tip: add the page to the tablet home screen to open it like an app.
 
 ### The page at a glance

@@ -47,6 +47,8 @@ Les fonctions de notes ne demandent que les notes MIDI de la harpe : elles devra
 2. Allumez le Pi. Au bout d'une minute environ, il crée le réseau Wi-Fi **Kromalaser** (mot de passe : `kromalaser`).
 3. Connectez à ce réseau l'appareil de votre choix (tablette, téléphone, ordinateur : tout appareil qui a le Wi-Fi et un navigateur), puis ouvrez **http://10.42.0.1:8080** dans le navigateur.
 
+   > Sur un PC Windows, la première fois, Windows demande parfois un **code PIN** : cliquez alors sur « **Se connecter à l'aide d'une clé de sécurité** » (ou « … d'un mot de passe », selon la version), puis tapez `kromalaser`.
+
 > Astuce : ajoutez la page à l'écran d'accueil de la tablette pour l'ouvrir comme une application.
 
 ### La page en un coup d'œil

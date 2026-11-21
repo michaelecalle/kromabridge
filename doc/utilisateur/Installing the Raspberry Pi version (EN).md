@@ -66,6 +66,8 @@ One minute later, the Pi leaves your home Wi-Fi and creates its own network, **K
 If the Pi has to join the harp somewhere else, never cut the power directly:
 
 1. Connect your device (laptop, tablet, phone) to the **Kromalaser** Wi-Fi (password: `kromalaser`).
+
+   > On a Windows PC, the first time, Windows sometimes asks for a **PIN**: then click « **Connect using a security key instead** » (or « … a password », depending on the version), and type `kromalaser`.
 2. Open **http://10.42.0.1:8080** in the browser.
 3. Tap the **⏻** button at the top right, then confirm.
 4. Wait for the message telling you that you can cut the power, then unplug.
@@ -76,6 +78,8 @@ Switched on again near the harp, the Pi recreates its Kromalaser network by itse
 
 1. Connect the harp to the Pi by USB, and the USB MIDI interface between the Pi and your synthesizer.
 2. On a tablet, phone or PC, connect to the **Kromalaser** Wi-Fi network (password: `kromalaser`).
+
+   > On a Windows PC, the first time, Windows sometimes asks for a **PIN**: then click « **Connect using a security key instead** » (or « … a password », depending on the version), and type `kromalaser`.
 3. Open **http://10.42.0.1:8080** in the browser.
 4. In ⚙ > **App settings** > **MIDI output of the harp notes**, choose your MIDI interface.
 
