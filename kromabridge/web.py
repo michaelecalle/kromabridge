@@ -334,6 +334,8 @@ def make_handler(runtime: Runtime, harpe=None, service=None, pc: bool = False):
                 from . import DEPOT, __version__
                 etat["version"] = __version__
                 etat["depot"] = DEPOT
+                etat["premier_reglage"] = (not pc and not runtime.parametres.get("sortie_midi")
+                                           and not runtime.midi_output_default)
                 from .harp_settings import BY_KEY
                 etat["harpe_modifiee_noms"] = [
                     (BY_KEY[k].label if etat["langue"] == "en" else (BY_KEY[k].label_fr or BY_KEY[k].label))
@@ -2804,6 +2806,7 @@ function progInterne(v) {          // undefined = numero impossible ; null = vid
   return (n >= 1 && n <= 128) ? n : undefined;
 }
 let heureEnvoyee = false;
+let premierOuvert = false;
 // Nouvelle version publiee sur GitHub ? (seulement si l'appareil qui affiche la
 // page a Internet ; sinon, rien ne s'affiche)
 let majVerifiee = false;
@@ -2846,6 +2849,11 @@ function appliquer(data) {
   data.liste_morceaux_de = nom => (data.listes_detail || {})[nom] || [];
   avertirFirmware(data);
   verifierMiseAJour(data);
+  // Premier demarrage (aucune sortie MIDI choisie) : on ouvre les Parametres de l'application.
+  if (data.premier_reglage && !premierOuvert) {
+    premierOuvert = true;
+    ouvrirReglages('/parametres?inclus=1&premier=1', T('Paramètres de l’application'));
+  }
   // Version Raspberry Pi : le Pi prend l'heure de l'appareil qui affiche la page.
   if (!data.pc && !heureEnvoyee) {
     heureEnvoyee = true;
@@ -3386,6 +3394,16 @@ PAGE_PARAMETRES = """<!DOCTYPE html>
   (jeu.sorties || []).forEach(n => sm.add(new Option(n, n)));
   if (jeu.sortie && ![...sm.options].some(o => o.value === jeu.sortie)) sm.add(new Option(jeu.sortie + T(' (débranché)'), jeu.sortie));
   sm.value = jeu.sortie || '';
+  if (location.search.indexOf('premier') >= 0) {
+    const cadre = sm.closest('.reglage');
+    const b = document.createElement('div');
+    b.className = 'reglage';
+    b.style.cssText = 'border:2px solid var(--vif);font-weight:600';
+    b.textContent = T('Bienvenue dans Kromabridge ! Choisissez d’abord ci-dessous, dans « Sortie MIDI des notes de la harpe », l’interface MIDI reliée à votre synthétiseur. Ce réglage n’est demandé qu’une fois.');
+    cadre.parentNode.insertBefore(b, cadre);
+    cadre.style.border = '2px solid var(--vif)';
+    setTimeout(() => b.scrollIntoView({block: 'start'}), 300);
+  }
   const sj = document.getElementById('sonjeu');
   if (!jeu.pc) document.getElementById('optjeupc').remove();
   sj.value = jeu.son_jeu || 'aucun';
@@ -3753,3 +3771,5 @@ _i = PAGE_HARPE.index("  sauve.onclick = async () => {\n    // Toujours le prese
 _j = PAGE_HARPE.index("    const r = await posterP('/api/harpe/preset/enregistrer', {numero: d.numero});\n    if (r) { message(T('Réglages enregistrés dans le preset ') + d.numero + '.'); montrer(r); remplir(); }\n  };", _i) + len("    const r = await posterP('/api/harpe/preset/enregistrer', {numero: d.numero});\n    if (r) { message(T('Réglages enregistrés dans le preset ') + d.numero + '.'); montrer(r); remplir(); }\n  };")
 PAGE_HARPE = PAGE_HARPE[:_i] + '  sauve.onclick = async () => {\n    // On demande toujours dans quel preset enregistrer : aucun n\'est choisi d\'avance.\n    const info = await posterP(\'/api/harpe/preset/copie\');\n    if (!info) return;\n    const prog = info.programmes || [];\n    const morceau = dernier ? dernier.nom_morceau : \'\';\n    const notes = dernier ? dernier.notes_reproduites : false;\n    let dlg = document.getElementById(\'dlgsauve\');\n    if (!dlg) { dlg = document.createElement(\'dialog\'); dlg.id = \'dlgsauve\'; document.body.appendChild(dlg); }\n    let opts = \'<option value="">\' + T(\'— choisir le preset —\') + \'</option>\';\n    for (let n = etat.presets[0]; n <= etat.presets[1]; n++)\n      opts += \'<option value="\' + n + \'">Preset \' + n + (prog.includes(n) ? \'  ⚠ \' + T(\'(programmé)\') : \'\') + \'</option>\';\n    dlg.innerHTML = \'<h3>\' + T(\'Enregistrer le morceau\') + \' « \' + morceau + \' »</h3>\' +\n      \'<p>\' + T(\'Dans le preset :\') + \' <select id="snum">\' + opts + \'</select></p>\' +\n      \'<p id="savert" class="oct"></p>\' +\n      \'<p class="oct">\' + T(\'Enregistré :\') + \' \' + T(\'les réglages de la harpe (nombre de rayons, largeur, couleurs, pédales…).\') + \'<br>\' +\n      T(\'Non enregistré :\') + \' \' + HORS_PRESET.map(T).join(\', \') + \'.<br>\' +\n      (notes ? T(\'Les rayons de ce morceau forment une gamme continue : la transposition est enregistrée aussi, le preset jouera les mêmes notes.\')\n             : T(\'La harpe seule ne peut pas jouer les notes de ce morceau : le preset jouera sa gamme d’origine.\')) + \'<br>\' +\n      T(\'Le contenu actuel du preset sera remplacé (une copie est gardée dans Kromabridge).\') + \'</p>\' +\n      \'<div class="ligne"><button id="sok" class="vif" disabled>\' + T(\'Enregistrer\') + \'</button><button id="sannuler">\' + T(\'Annuler\') + \'</button></div>\';\n    dlg.showModal();\n    const sel = dlg.querySelector(\'#snum\'), ok = dlg.querySelector(\'#sok\');\n    sel.onchange = () => {\n      const n = +sel.value;\n      ok.disabled = !n;\n      ok.textContent = n ? T(\'Enregistrer dans le preset\') + \' \' + n : T(\'Enregistrer\');\n      dlg.querySelector(\'#savert\').innerHTML = prog.includes(n)\n        ? \'<b>⚠ \' + T(\'Le preset\') + \' \' + n + \' \' + T(\'semble programmé : son contenu actuel sera remplacé (une copie est gardée).\') + \'</b>\' : \'\';\n    };\n    dlg.querySelector(\'#sannuler\').onclick = () => dlg.close();\n    ok.onclick = async () => {\n      const n = +sel.value; if (!n) return;\n      dlg.close();\n      message(T(\'Enregistrement dans le preset\') + \' \' + n + \'…\');\n      const r = await posterP(\'/api/harpe/preset/enregistrer\', {numero: n});\n      if (r) { PRESET = String(n); choix.value = String(n); message(T(\'Réglages enregistrés dans le preset \') + n + \'.\'); montrer(r); remplir(); }\n    };\n  };' + PAGE_HARPE[_j:]
 PAGE_HARPE = PAGE_HARPE.replace("function T(s)", 'Object.assign(EN, ' + '{"— choisir le preset —": "— choose the preset —", "(programmé)": "(programmed)", "Enregistrer le morceau": "Save song", "Dans le preset :": "Into preset:", "Enregistrer": "Save", "Le preset": "Preset", "semble programmé : son contenu actuel sera remplacé (une copie est gardée).": "seems to be programmed: its current content will be replaced (a copy is kept)."}' + ');' + "function T(s)", 1)
+
+PAGE_PARAMETRES = PAGE_PARAMETRES.replace("function T(s)", 'Object.assign(EN, ' + '{"Bienvenue dans Kromabridge ! Choisissez d’abord ci-dessous, dans « Sortie MIDI des notes de la harpe », l’interface MIDI reliée à votre synthétiseur. Ce réglage n’est demandé qu’une fois.": "Welcome to Kromabridge! First choose below, in « MIDI output of the harp notes », the MIDI interface connected to your synthesizer. This is only asked once."}' + ');' + "function T(s)", 1)

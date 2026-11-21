@@ -39,11 +39,17 @@ Sur la page des versions, https://github.com/michaelecalle/kromabridge/releases/
 
    > Sur un PC Windows, la première fois, Windows demande parfois un **code PIN** : cliquez alors sur « **Se connecter à l'aide d'une clé de sécurité** » (ou « … d'un mot de passe », selon la version), puis tapez `kromalaser`.
 2. Ouvrez **http://10.42.0.1:8080** dans le navigateur.
-3. Dans ⚙ > **Paramètres de l'application** > **Sortie MIDI des notes de la harpe**, choisissez votre interface MIDI.
 
-C'est prêt. La suite est dans le manuel de Kromabridge.
+## 5. Premier réglage : la sortie MIDI (indispensable)
 
-## 5. Éteindre le Pi
+Au premier démarrage, Kromabridge ne sait pas encore à quoi votre synthétiseur est relié : la page s'ouvre directement sur les **Paramètres de l'application**, avec un bandeau de bienvenue.
+
+1. Dans **Sortie MIDI des notes de la harpe**, choisissez votre interface MIDI USB (elle apparaît sous son nom, par exemple « USB MIDI Interface » ou le nom de votre câble).
+2. Allumez la harpe, ouvrez-la et jouez : le synthétiseur doit sonner.
+
+Ce réglage n'est demandé qu'une fois. Ensuite, la page s'ouvre normalement. La suite est dans le manuel de Kromabridge.
+
+## 6. Éteindre le Pi
 
 Ne coupez jamais l'alimentation directement : dans la page de Kromabridge, touchez le bouton **⏻** en haut à droite, confirmez, et attendez le message « Vous pouvez couper l'alimentation ». Au rallumage, le Pi recrée tout seul son réseau Kromalaser.
 
