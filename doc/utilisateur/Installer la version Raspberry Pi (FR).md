@@ -16,7 +16,7 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
 1. Sur le PC, téléchargez et installez **Raspberry Pi Imager** depuis le site officiel : https://www.raspberrypi.com/software/
 2. Mettez la carte microSD dans le lecteur du PC, puis lancez Raspberry Pi Imager.
 3. Choisissez :
-   - **Appareil** : Raspberry Pi 4 ;
+   - **Appareil** : le modèle de Raspberry Pi que vous utilisez (Kromabridge a été testé sur le Pi 4) ;
    - **Système d'exploitation** : *Raspberry Pi OS (other)*, puis **Raspberry Pi OS Lite (64-bit)** ;
    - **Stockage** : votre carte microSD.
 4. Imager propose de **personnaliser** le système (bouton « Modifier les réglages », ou étapes successives selon la version d'Imager). Réglez :

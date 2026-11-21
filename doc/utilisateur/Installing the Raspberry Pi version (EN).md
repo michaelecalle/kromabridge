@@ -16,7 +16,7 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
 1. On the PC, download and install **Raspberry Pi Imager** from the official website: https://www.raspberrypi.com/software/
 2. Put the microSD card into the PC's reader, then start Raspberry Pi Imager.
 3. Choose:
-   - **Device**: Raspberry Pi 4;
+   - **Device**: the Raspberry Pi model you use (Kromabridge was tested on the Pi 4);
    - **Operating system**: *Raspberry Pi OS (other)*, then **Raspberry Pi OS Lite (64-bit)**;
    - **Storage**: your microSD card.
 4. Imager offers to **customise** the system ("Edit settings" button, or successive steps depending on the Imager version). Set:
