@@ -228,6 +228,17 @@ The preview shows the result. Since a laser can only have one power, some combin
 
 The **Colors (legacy)** tab gives access to the original laser settings, locked by default ("Edit by hand" box).
 
+### Harp presets
+
+The harp itself keeps 40 presets, which can be recalled from the footswitch without a computer. A preset only holds the Manager settings: number of beams, width, colours, footswitches, transpose… Each beam's note, chords, parts, the animation, the synth sound, the MIDI channel and the control track only exist in Kromabridge: on its own, the harp can only play a chromatic scale, possibly transposed. The collapsible table at the top of the **Presets** tab sums up what each one keeps.
+
+- **Viewing a preset**: choose it in the list. Kromabridge reads it (the harp applies it for a moment, then goes back to its previous state; nothing is written to the harp) and shows its **differences with the current song**, then its full content. A preset already read then shows instantly, with the date it was read. **Read this preset again** and **Read all presets** (about twenty seconds) refresh the copy.
+- **Save**: saves the current song's settings into a preset. A window always asks which preset, without choosing one in advance; presets that seem already programmed are marked "⚠ (programmed)". If the song's beams form a continuous scale, the transposition is saved too, and the preset will play the same notes.
+- **Recall**: loads the displayed preset **into a new song** (its settings, and the notes it plays: a starting point) or **into the current song** (its settings only; the beam notes do not change).
+- **Put back the previous content**: before writing into a preset, Kromabridge keeps its previous content. This button puts it back, in case of a mistake.
+
+Reading and saving are done **with the harp closed**: for a moment, the harp really applies the preset. Saving a preset writes into the harp's memory, as the original Manager does: Kromabridge only does it when you ask.
+
 ### Monitor
 
 The **Monitor** tab shows every message exchanged with the harp, to understand what is going on.

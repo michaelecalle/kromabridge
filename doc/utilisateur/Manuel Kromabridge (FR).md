@@ -228,6 +228,17 @@ L'aperçu montre le résultat. Un laser ne pouvant avoir qu'une seule puissance,
 
 L'onglet **Couleurs (historique)** donne accès aux réglages d'origine des lasers, verrouillés par défaut (case « Modifier à la main »).
 
+### Les presets de la harpe
+
+La harpe garde elle-même 40 presets, que l'on peut rappeler au pédalier sans ordinateur. Un preset ne contient que les réglages du Manager : nombre de rayons, largeur, couleurs, pédales, transposition… La note de chaque rayon, les accords, les parties, l'animation, le son du synthé, le canal MIDI et la piste de contrôle n'existent que dans Kromabridge : la harpe seule ne sait jouer qu'une gamme chromatique, éventuellement transposée. Le tableau repliable en haut de l'onglet **Presets** récapitule ce que garde chacun.
+
+- **Voir un preset** : choisissez-le dans la liste. Kromabridge le lit (la harpe l'applique un instant, puis revient à son état d'avant ; rien n'est écrit dans la harpe) et affiche ses **différences avec le morceau en cours**, puis tout son contenu. Un preset déjà lu s'affiche ensuite instantanément, avec la date de lecture. **Relire ce preset** et **Lire tous les presets** (une vingtaine de secondes) mettent la copie à jour.
+- **Enregistrer (Save)** : enregistre les réglages du morceau en cours dans un preset. Une fenêtre demande toujours dans quel preset, sans en choisir un d'avance ; les presets qui semblent déjà programmés sont marqués « ⚠ (programmé) ». Si les rayons du morceau forment une gamme continue, la transposition est enregistrée aussi, et le preset jouera les mêmes notes.
+- **Rappeler (Recall)** : charge le preset affiché **dans un nouveau morceau** (ses réglages, et les notes qu'il joue : une base de travail) ou **dans le morceau en cours** (ses réglages seulement ; les notes des rayons ne changent pas).
+- **Remettre l'ancien contenu** : avant d'écrire dans un preset, Kromabridge garde son ancien contenu. Ce bouton le remet, en cas d'erreur.
+
+La lecture et l'enregistrement se font **harpe fermée** : pendant un instant, la harpe applique vraiment le preset. Enregistrer un preset écrit dans la mémoire de la harpe, comme le Manager d'origine : Kromabridge ne le fait que sur votre demande.
+
 ### Moniteur
 
 L'onglet **Moniteur** affiche tous les messages échangés avec la harpe, pour comprendre ce qui se passe.
