@@ -88,3 +88,6 @@ class Copie:
 
     def resume(self) -> dict:
         return {n: e["lu"] for n, e in self.donnees["presets"].items()}
+
+    def programmes(self) -> list[int]:
+        return [int(n) for n in self.donnees["presets"] if self.semble_programme(int(n))]
