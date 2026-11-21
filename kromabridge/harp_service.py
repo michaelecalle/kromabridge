@@ -67,7 +67,7 @@ class HarpService:
             "verrouilles": sorted(LOCKED_AT_ZERO),
         }
 
-    def read(self) -> dict:
+    def read(self, verrous: bool = True) -> dict:
         """Demande la version et tous les reglages, et attend les reponses.
 
         Constate sur la harpe le 16/11/2026 : elle ne libere sa reponse qu'a la
@@ -95,8 +95,42 @@ class HarpService:
                 r = hs.BY_KEY.get(key)
                 if r is not None and v in r.alias and r.alias[v] == self.valeurs.get(key):
                     self.valeurs[key] = v
-            self.enforce_locks()
+            if verrous:
+                self.enforce_locks()
         return self.state()
+
+    def appliquer(self, valeurs: dict) -> None:
+        """Envoie a la harpe tous ces reglages (sans rien enregistrer en memoire)."""
+        for key, v in valeurs.items():
+            r = hs.BY_KEY.get(key)
+            if r is not None:
+                self.control.send(r.message(int(v)))
+        self.valeurs.update({k: int(v) for k, v in valeurs.items() if k in hs.BY_KEY})
+
+    def lire_preset(self, n: int) -> dict:
+        """Le contenu d'un preset de la harpe : on le rappelle, on lit ses reglages
+        (transposition et octave comprises), puis on remet la harpe exactement
+        comme avant. Rien n'est ecrit dans la memoire de la harpe."""
+        hs.check_preset(int(n))
+        avant = dict(self.read()["valeurs"])
+        self.control.send(hs.recall_preset(int(n)))
+        self.read(verrous=False)
+        contenu = dict(self.valeurs)
+        self.appliquer(avant)
+        self.valeurs = avant
+        return contenu
+
+    def enregistrer_preset(self, n: int, cible: dict) -> None:
+        """Met la harpe dans l'etat `cible`, l'enregistre dans le preset n, puis
+        remet la harpe comme avant. Ecrit dans la memoire de la harpe."""
+        hs.check_preset(int(n))
+        avant = dict(self.read()["valeurs"])
+        self.appliquer(cible)
+        time.sleep(0.2)
+        self.control.send(hs.save_preset(int(n)))
+        time.sleep(0.3)
+        self.appliquer(avant)
+        self.valeurs = avant
 
     def largeur_zero(self) -> list[int] | None:
         """Prepare le message cache qui met la largeur X a 0 % (tous les rayons

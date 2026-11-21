@@ -309,6 +309,62 @@ class Runtime:
             index = self.bank.index
         return self.select(index)
 
+    # --------------------------------------------------- presets de la harpe
+
+    def cible_preset_harpe(self, actuels: dict) -> tuple[dict, bool]:
+        """Les reglages a enregistrer dans un preset de la harpe pour le morceau
+        courant : ses reglages memorises (et communs), completes par les reglages
+        actuels, avec son nombre de rayons. Si ses rayons forment une gamme
+        chromatique continue, Transpose et Octave reproduisent ses notes.
+        Rend (reglages, notes_reproduites)."""
+        from . import presets_harpe as ph
+        with self.lock:
+            preset = self.bank.current
+            cible = dict(actuels)
+            cible.update(self._harpe_attendue(preset))
+            if "rayons" not in self._harpe_attendue(preset):
+                cible["rayons"] = max(0, min(10, len(preset.beams) - 5))
+            d = ph.decalage_chromatique(preset.beams)
+            reglages = ph.vers_transpo_octave(d) if d is not None else None
+            cible.update(reglages or ph.vers_transpo_octave(0))
+            return cible, reglages is not None
+
+    def song_from_harp_preset(self, numero: int, valeurs: dict, nouveau: bool, nom: str | None = None) -> Preset:
+        """Un preset de la harpe dans un nouveau morceau (ses reglages, et les notes
+        qu'il joue : la gamme de la harpe, decalee par Transpose et Octave), ou ses
+        reglages seulement dans le morceau courant."""
+        from . import presets_harpe as ph
+        from .harp_service import LOCKED_AT_ZERO
+        reglages = {k: int(v) for k, v in valeurs.items()}
+        d = ph.decalage(reglages)
+        reglages.update(LOCKED_AT_ZERO)       # la transposition se fait dans Kromabridge
+        rayons = 5 + int(reglages.get("rayons", 4))
+        if nouveau:
+            nom = (nom or f"Preset {numero}").strip()
+            with self.lock:
+                base_nom, k = nom, 2
+                while nom in self.bank.names:
+                    nom, k = f"{base_nom} ({k})", k + 1
+            self.new_song(nom, rayons=rayons)
+        with self.lock:
+            preset = self.bank.current
+            if preset.gamme:
+                raise ValueError("le morceau Gamme ne peut pas recevoir les réglages d’un preset")
+            preset.harp_snapshot = {k: v for k, v in reglages.items() if k not in self._communs()}
+            preset.beam_count = None
+            if nouveau:
+                base = min((b.incoming_note for b in preset.beams), default=60)
+                preset.beams = [Beam(index=i, incoming_note=base + i - 1, note=max(0, min(127, base + i - 1 + d)))
+                                for i in range(1, rayons + 1)]
+                preset.sync_part()
+            self._save(preset)
+            out = self._messages_harpe(preset)
+        if self.harp_send is None:
+            self.send(out)
+        else:
+            self._configure_harp(None, out)
+        return preset
+
     def set_harp_preset(self, number: int | None) -> None:
         """Associe au morceau courant un preset de la harpe (ou aucun), et l'enregistre."""
         with self.lock:

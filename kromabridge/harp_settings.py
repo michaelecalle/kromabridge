@@ -238,3 +238,8 @@ def write_all(donnees: list[int]) -> list[int]:
         x = (x ^ v) & 0x7F
     d[39] = x
     return [0xF0, 0x7B, 0x01, 0x71] + d + [0xF7]
+
+
+def check_preset(n: int) -> None:
+    """Refuse un numero de preset hors de 1..40."""
+    _check_preset(n)
