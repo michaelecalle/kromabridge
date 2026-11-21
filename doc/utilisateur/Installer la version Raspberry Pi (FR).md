@@ -43,7 +43,7 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
    ```
 
 3. La première fois, une question demande si vous faites confiance à cet appareil : tapez `yes`, puis Entrée.
-4. Tapez votre mot de passe, puis Entrée. **Rien ne s'affiche pendant que vous tapez** : c'est normal.
+4. Tapez le **mot de passe choisi dans Raspberry Pi Imager**, puis Entrée. **Rien ne s'affiche pendant que vous tapez** : c'est normal.
 
 > Si `kromabridge.local` n'est pas trouvé, attendez encore une minute et réessayez. Sinon, cherchez l'adresse du Pi dans la page de votre box (appareils connectés) et utilisez-la à la place, par exemple `ssh nom@192.168.1.42`.
 
@@ -55,7 +55,7 @@ Copiez cette commande, collez-la dans le Terminal (clic droit), puis Entrée :
 curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/installer-pi.sh | sudo bash
 ```
 
-Le Pi redemande votre mot de passe, puis installe tout seul ce qu'il faut (quelques minutes). À la fin s'affiche « Kromabridge est installé ».
+Le Pi redemande le même mot de passe, puis installe tout seul ce qu'il faut (quelques minutes). À la fin s'affiche « Kromabridge est installé ».
 
 Une minute plus tard, le Pi quitte le Wi-Fi de la maison et crée son propre réseau, **Kromalaser** : la connexion SSH se coupe, c'est normal. Vous pouvez fermer le Terminal.
 

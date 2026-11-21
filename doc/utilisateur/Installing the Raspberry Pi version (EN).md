@@ -43,7 +43,7 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
    ```
 
 3. The first time, a question asks whether you trust this device: type `yes`, then Enter.
-4. Type your password, then Enter. **Nothing is shown while you type**: that is normal.
+4. Type the **password you chose in Raspberry Pi Imager**, then Enter. **Nothing is shown while you type**: that is normal.
 
 > If `kromabridge.local` is not found, wait another minute and try again. Otherwise, look up the Pi's address in your router's page (connected devices) and use it instead, for example `ssh name@192.168.1.42`.
 
@@ -55,7 +55,7 @@ Copy this command, paste it into the Terminal (right-click), then Enter:
 curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/installer-pi.sh | sudo bash
 ```
 
-The Pi asks for your password again, then installs everything it needs by itself (a few minutes). At the end, "Kromabridge est installé" is shown.
+The Pi asks for the same password again, then installs everything it needs by itself (a few minutes). At the end, "Kromabridge est installé" is shown.
 
 One minute later, the Pi leaves your home Wi-Fi and creates its own network, **Kromalaser**: the SSH connection drops, that is normal. You can close the Terminal.
 
