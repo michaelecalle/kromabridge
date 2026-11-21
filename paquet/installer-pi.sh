@@ -14,7 +14,9 @@ set -e
 DEPOT="michaelecalle/kromabridge"
 
 [ "$(id -u)" = 0 ] || { echo "Lancez ce script avec sudo." >&2; exit 1; }
-UTILISATEUR="${SUDO_USER:-}"
+# KB_IMAGE=1 : installation dans une image de carte SD (fabriquer-image.sh), sans
+# demarrer quoi que ce soit ; KB_UTILISATEUR donne alors le nom de l'utilisateur.
+UTILISATEUR="${KB_UTILISATEUR:-${SUDO_USER:-}}"
 [ -n "$UTILISATEUR" ] && [ "$UTILISATEUR" != root ] || { echo "Lancez ce script avec sudo, depuis votre compte (pas root)." >&2; exit 1; }
 MAISON=$(getent passwd "$UTILISATEUR" | cut -d: -f6)
 DOSSIER="$MAISON/kromabridge"
@@ -78,6 +80,11 @@ User=$UTILISATEUR
 [Install]
 WantedBy=multi-user.target
 FIN
+if [ -n "${KB_IMAGE:-}" ]; then
+    systemctl enable kromabridge >/dev/null 2>&1 || ln -sf /etc/systemd/system/kromabridge.service /etc/systemd/system/multi-user.target.wants/kromabridge.service
+    echo "Kromabridge est installe dans l'image."
+    exit 0
+fi
 systemctl daemon-reload
 systemctl enable kromabridge >/dev/null 2>&1
 systemctl restart kromabridge
