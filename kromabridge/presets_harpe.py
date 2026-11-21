@@ -74,5 +74,17 @@ class Copie:
         del s[SAUVEGARDES_MAX:]
         self._ecrire()
 
+    def semble_programme(self, n: int) -> bool:
+        """Vrai si le contenu (connu) du preset n differe de celui que partagent la
+        plupart des presets lus : ceux restes aux reglages d'usine sont identiques."""
+        presets = self.donnees["presets"]
+        if str(n) not in presets or len(presets) < 5:
+            return False
+        cles = [json.dumps(e["valeurs"], sort_keys=True) for e in presets.values()]
+        commun = max(set(cles), key=cles.count)
+        if cles.count(commun) < 3:
+            return False
+        return json.dumps(presets[str(n)]["valeurs"], sort_keys=True) != commun
+
     def resume(self) -> dict:
         return {n: e["lu"] for n, e in self.donnees["presets"].items()}

@@ -70,3 +70,11 @@ def test_morceau_vers_preset_et_preset_vers_morceau(tmp_path):
     rt.song_from_harp_preset(7, {"largeur": 10}, nouveau=False)              # morceau en cours : reglages seulement
     assert [b.note for b in rt.bank.current.beams] == avant
     assert rt.bank.current.harp_snapshot["largeur"] == 10
+
+
+def test_preset_qui_semble_programme(tmp_path):
+    c = ph.Copie(tmp_path / "p.json")
+    for n in range(1, 11):
+        c.mettre(n, {"largeur": 90, "gain": 75})       # reglages d'usine
+    c.mettre(3, {"largeur": 40, "gain": 75})            # programme
+    assert c.semble_programme(3) and not c.semble_programme(4) and not c.semble_programme(30)
