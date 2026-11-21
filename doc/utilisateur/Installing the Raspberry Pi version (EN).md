@@ -36,7 +36,7 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
 ## 3. Connecting to the Pi from the PC
 
 1. On the PC, **right-click the Start button**, then choose **Terminal** (on Windows 10: **Windows PowerShell**).
-2. Type the following command, replacing **YOUR-NAME** with the **username you chose in Raspberry Pi Imager**, then Enter:
+2. Type the following command, replacing **YOUR-NAME** with the **username you chose in step 1**, then Enter:
 
    ```
    ssh YOUR-NAME@kromabridge.local
@@ -45,7 +45,7 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
    For example, if your username is "harpist": `ssh harpist@kromabridge.local`
 
 3. The first time, a question asks whether you trust this device: type `yes`, then Enter.
-4. Type the **password you chose in Raspberry Pi Imager**, then Enter. **Nothing is shown while you type**: that is normal.
+4. Type the **password you chose in step 1**, then Enter. **Nothing is shown while you type**: that is normal.
 
 > If `kromabridge.local` is not found, wait another minute and try again. Otherwise, look up the Pi's address in your router's page (connected devices) and use it instead, for example `ssh YOUR-NAME@192.168.1.42`.
 

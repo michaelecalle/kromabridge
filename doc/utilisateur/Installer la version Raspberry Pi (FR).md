@@ -36,7 +36,7 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
 ## 3. Se connecter au Pi depuis le PC
 
 1. Sur le PC, faites un **clic droit sur le bouton Démarrer**, puis choisissez **Terminal** (sous Windows 10 : **Windows PowerShell**).
-2. Tapez la commande suivante, en remplaçant **VOTRE-NOM** par le **nom d'utilisateur choisi dans Raspberry Pi Imager**, puis Entrée :
+2. Tapez la commande suivante, en remplaçant **VOTRE-NOM** par le **nom d'utilisateur que vous avez choisi à l'étape 1**, puis Entrée :
 
    ```
    ssh VOTRE-NOM@kromabridge.local
@@ -45,7 +45,7 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
    Par exemple, si votre nom d'utilisateur est « harpiste » : `ssh harpiste@kromabridge.local`
 
 3. La première fois, une question demande si vous faites confiance à cet appareil : tapez `yes`, puis Entrée.
-4. Tapez le **mot de passe choisi dans Raspberry Pi Imager**, puis Entrée. **Rien ne s'affiche pendant que vous tapez** : c'est normal.
+4. Tapez le **mot de passe que vous avez choisi à l'étape 1**, puis Entrée. **Rien ne s'affiche pendant que vous tapez** : c'est normal.
 
 > Si `kromabridge.local` n'est pas trouvé, attendez encore une minute et réessayez. Sinon, cherchez l'adresse du Pi dans la page de votre box (appareils connectés) et utilisez-la à la place, par exemple `ssh VOTRE-NOM@192.168.1.42`.
 
