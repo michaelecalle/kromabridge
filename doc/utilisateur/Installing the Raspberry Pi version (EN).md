@@ -42,7 +42,7 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
    ssh YOUR-NAME@kromabridge.local
    ```
 
-   For example, if your username is "michael": `ssh michael@kromabridge.local`
+   For example, if your username is "harpist": `ssh harpist@kromabridge.local`
 
 3. The first time, a question asks whether you trust this device: type `yes`, then Enter.
 4. Type the **password you chose in Raspberry Pi Imager**, then Enter. **Nothing is shown while you type**: that is normal.

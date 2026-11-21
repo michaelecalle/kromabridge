@@ -42,7 +42,7 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
    ssh VOTRE-NOM@kromabridge.local
    ```
 
-   Par exemple, si votre nom d'utilisateur est « michael » : `ssh michael@kromabridge.local`
+   Par exemple, si votre nom d'utilisateur est « harpiste » : `ssh harpiste@kromabridge.local`
 
 3. La première fois, une question demande si vous faites confiance à cet appareil : tapez `yes`, puis Entrée.
 4. Tapez le **mot de passe choisi dans Raspberry Pi Imager**, puis Entrée. **Rien ne s'affiche pendant que vous tapez** : c'est normal.
