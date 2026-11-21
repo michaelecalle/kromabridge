@@ -35,7 +35,7 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
 
 ## 3. Connecting to the Pi from the PC
 
-1. On the PC, open **PowerShell** (Windows key, type *PowerShell*, then Enter).
+1. On the PC, **right-click the Start button**, then choose **Terminal** (on Windows 10: **Windows PowerShell**).
 2. Type the following command, replacing `name` with your username, then Enter:
 
    ```
@@ -49,7 +49,7 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
 
 ## 4. Installing Kromabridge
 
-Copy this command, paste it into PowerShell (right-click), then Enter:
+Copy this command, paste it into the Terminal (right-click), then Enter:
 
 ```
 curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/installer-pi.sh | sudo bash
@@ -57,7 +57,7 @@ curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/
 
 The Pi asks for your password again, then installs everything it needs by itself (a few minutes). At the end, "Kromabridge est installé" is shown.
 
-One minute later, the Pi leaves your home Wi-Fi and creates its own network, **Kromalaser**: the SSH connection drops, that is normal. You can close PowerShell.
+One minute later, the Pi leaves your home Wi-Fi and creates its own network, **Kromalaser**: the SSH connection drops, that is normal. You can close the Terminal.
 
 ## 5. First try
 

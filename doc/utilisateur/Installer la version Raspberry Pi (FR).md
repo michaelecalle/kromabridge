@@ -35,7 +35,7 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
 
 ## 3. Se connecter au Pi depuis le PC
 
-1. Sur le PC, ouvrez **PowerShell** (touche Windows, tapez *PowerShell*, puis Entrée).
+1. Sur le PC, faites un **clic droit sur le bouton Démarrer**, puis choisissez **Terminal** (sous Windows 10 : **Windows PowerShell**).
 2. Tapez la commande suivante, en remplaçant `nom` par votre nom d'utilisateur, puis Entrée :
 
    ```
@@ -49,7 +49,7 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
 
 ## 4. Installer Kromabridge
 
-Copiez cette commande, collez-la dans PowerShell (clic droit), puis Entrée :
+Copiez cette commande, collez-la dans le Terminal (clic droit), puis Entrée :
 
 ```
 curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/installer-pi.sh | sudo bash
@@ -57,7 +57,7 @@ curl -sSL https://github.com/michaelecalle/kromabridge/releases/latest/download/
 
 Le Pi redemande votre mot de passe, puis installe tout seul ce qu'il faut (quelques minutes). À la fin s'affiche « Kromabridge est installé ».
 
-Une minute plus tard, le Pi quitte le Wi-Fi de la maison et crée son propre réseau, **Kromalaser** : la connexion SSH se coupe, c'est normal. Vous pouvez fermer PowerShell.
+Une minute plus tard, le Pi quitte le Wi-Fi de la maison et crée son propre réseau, **Kromalaser** : la connexion SSH se coupe, c'est normal. Vous pouvez fermer le Terminal.
 
 ## 5. Premier essai
 
