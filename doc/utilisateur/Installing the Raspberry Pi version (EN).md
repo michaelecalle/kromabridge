@@ -20,11 +20,12 @@ The Raspberry Pi version makes the harp standalone: the harp, the Pi and a synth
    - **Operating system**: *Raspberry Pi OS (other)*, then **Raspberry Pi OS Lite (64-bit)**;
    - **Storage**: your microSD card.
 4. Imager offers to **customise** the system ("Edit settings" button, or successive steps depending on the Imager version). Set:
+   - **localisation**: your country, your **time zone** and your keyboard;
    - **hostname**: `kromabridge`;
    - **username** and **password**: choose them and **write them down**, you will need them right after;
-   - **Wi-Fi**: the name and password of your Wi-Fi, and your country;
-   - **time zone**: yours;
-   - **Services** tab: tick **Enable SSH**, with password authentication.
+   - **Wi-Fi**: the name and password of your Wi-Fi;
+   - **SSH** (**Services** tab, depending on the version): **enable it**, with password authentication;
+   - **Raspberry Pi Connect**, if offered: **leave it disabled**, Kromabridge does not need it.
 5. Start writing and wait until it finishes (a few minutes). Remove the card.
 
 ## 2. Starting the Pi

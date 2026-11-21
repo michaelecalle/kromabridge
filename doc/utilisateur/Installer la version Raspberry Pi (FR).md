@@ -20,11 +20,12 @@ La version Raspberry Pi rend la harpe autonome : la harpe, le Pi et un synthéti
    - **Système d'exploitation** : *Raspberry Pi OS (other)*, puis **Raspberry Pi OS Lite (64-bit)** ;
    - **Stockage** : votre carte microSD.
 4. Imager propose de **personnaliser** le système (bouton « Modifier les réglages », ou étapes successives selon la version d'Imager). Réglez :
+   - **localisation** : votre pays, votre **fuseau horaire** (Europe/Paris) et votre clavier ;
    - **nom d'hôte** : `kromabridge` ;
    - **nom d'utilisateur** et **mot de passe** : choisissez-les et **notez-les**, ils vous serviront juste après ;
-   - **Wi-Fi** : le nom et le mot de passe de votre Wi-Fi, pays **FR** ;
-   - **fuseau horaire** : Europe/Paris ;
-   - onglet **Services** : cochez **Activer SSH**, avec authentification par mot de passe.
+   - **Wi-Fi** : le nom et le mot de passe de votre Wi-Fi ;
+   - **SSH** (onglet **Services** selon la version) : **activez-le**, avec authentification par mot de passe ;
+   - **Raspberry Pi Connect**, s'il est proposé : **laissez-le désactivé**, Kromabridge n'en a pas besoin.
 5. Lancez l'écriture et attendez la fin (quelques minutes). Retirez la carte.
 
 ## 2. Démarrer le Pi
