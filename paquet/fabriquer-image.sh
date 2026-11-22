@@ -6,7 +6,7 @@
 # Resultat : kromabridge-pi-<version>.img.xz dans le dossier de travail.
 #
 # Dans l'image : utilisateur « kromalaser » (mot de passe « kromalaser »), nom
-# reseau « kromabridge », SSH actif, pays Wi-Fi FR (fixe au premier demarrage),
+# reseau « kromabridge », SSH desactive, pays Wi-Fi FR (fixe au premier demarrage),
 # fuseau Europe/Paris. Kromabridge demarre tout seul et cree le reseau Kromalaser.
 set -e
 [ "$(id -u)" = 0 ] || { echo "Lancez ce script avec sudo." >&2; exit 1; }
@@ -56,7 +56,7 @@ for m in dev dev/pts proc sys; do mount --bind "/$m" "$MONTAGE/$m"; done
 mv "$MONTAGE/etc/resolv.conf" "$MONTAGE/etc/resolv.conf.kromabridge" 2>/dev/null || true
 cp /etc/resolv.conf "$MONTAGE/etc/resolv.conf"
 
-echo "== 4/7 Utilisateur, nom, fuseau, SSH"
+echo "== 4/7 Utilisateur, nom, fuseau"
 HASH=$(openssl passwd -6 "$MOTDEPASSE")
 # l'outil officiel de Raspberry Pi OS renomme le premier utilisateur et fixe son mot de passe
 chroot "$MONTAGE" /usr/lib/userconf-pi/userconf "$UTILISATEUR" "$HASH"
@@ -64,7 +64,6 @@ echo kromabridge > "$MONTAGE/etc/hostname"
 sed -i 's/raspberrypi/kromabridge/g' "$MONTAGE/etc/hosts"
 ln -sf /usr/share/zoneinfo/Europe/Paris "$MONTAGE/etc/localtime"
 echo "Europe/Paris" > "$MONTAGE/etc/timezone"
-touch "$MONTAGE/boot/firmware/ssh"
 
 echo "== 5/7 Kromabridge"
 cp "$ZIP" "$MONTAGE/tmp/kromabridge-pi.zip"

@@ -64,7 +64,7 @@ Vos morceaux, listes et réglages ne sont jamais touchés. En cas de souci, la m
 
 ## Pour les utilisateurs avancés
 
-- **Accès SSH** : connecté au réseau Kromalaser, `ssh kromalaser@10.42.0.1` (mot de passe `kromalaser`). Changez ce mot de passe avec la commande `passwd` si vous le souhaitez.
+- **Accès SSH** : désactivé dans l'image. Pour l'activer, créez un fichier vide nommé `ssh` sur la partition « bootfs » de la carte microSD (lisible depuis l'ordinateur), puis redémarrez le Pi : `ssh kromalaser@10.42.0.1` (mot de passe `kromalaser`), depuis le réseau Kromalaser.
 - **Installer Kromabridge sur un Raspberry Pi OS existant** (plutôt que l'image) : le Pi relié à Internet, connecté en SSH avec votre propre compte, tapez :
 
   ```

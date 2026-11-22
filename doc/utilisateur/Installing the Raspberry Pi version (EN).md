@@ -64,7 +64,7 @@ Your songs, lists and settings are never touched. If something goes wrong, the s
 
 ## For advanced users
 
-- **SSH access**: connected to the Kromalaser network, `ssh kromalaser@10.42.0.1` (password `kromalaser`). Change this password with the `passwd` command if you wish.
+- **SSH access**: disabled in the image. To enable it, create an empty file named `ssh` on the "bootfs" partition of the microSD card (readable from the computer), then restart the Pi: `ssh kromalaser@10.42.0.1` (password `kromalaser`), from the Kromalaser network.
 - **Installing Kromabridge on an existing Raspberry Pi OS** (instead of the image): with the Pi connected to the Internet, logged in over SSH with your own account, type:
 
   ```
