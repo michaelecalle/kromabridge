@@ -318,7 +318,8 @@ def test_morceau_gamme(tmp_path):
     assert e["memoires"] == ["Un", "Gamme"] and e["index_gamme"] == 1
     rt.select(1)
     g = rt.bank.current
-    assert g.gamme and [b.note for b in g.beams] == list(range(60, 69))
+    assert g.gamme and [b.note for b in g.beams] == list(range(60, 73))     # 13 rayons (reglages d'usine)
+    assert g.harp_snapshot["gain"] == 25 and g.harp_snapshot["rayons"] == 8
     assert rt.handle([0x90, 64, 100])[0][1] == 64            # la note de la harpe, telle quelle
     for action in (lambda: rt.set_beam_note(1, 50), lambda: rt.shift_all(1), lambda: rt.rename("X"),
                    lambda: rt.delete_song(1), lambda: rt.set_beam_chord(1, [64])):

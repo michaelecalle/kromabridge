@@ -285,6 +285,7 @@ Quand une nouvelle version de Kromabridge paraît, un **bandeau vert** le signal
 
 ## 13. En cas de souci
 
+- **Des notes sonnent toutes seules** (notes « fantômes », sans toucher les rayons) : le capteur est trop sensible pour le lieu. Baissez le **Gain du capteur** (⚙ > Paramètres de la harpe > Système), par exemple vers 50, puis mémorisez-le. Cochez « Commun à tous les morceaux » : ce réglage dépend du lieu, pas du morceau.
 - **Une note reste coincée** : 🛑 **Panique** (ou Échap). Elle coupe aussi les notes tenues par la pédale.
 - **La harpe ne répond pas** : vérifiez qu'elle est allumée et branchée en USB ; la page l'indique quand elle est injoignable.
 - **Aucun son sur la tablette** : touchez 🔇 en haut de la page, et vérifiez le mode silencieux.

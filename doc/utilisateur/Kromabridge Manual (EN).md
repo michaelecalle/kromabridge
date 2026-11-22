@@ -285,6 +285,7 @@ When a new version of Kromabridge is released, a **green banner** says so at the
 
 ## 13. Troubleshooting
 
+- **Notes play by themselves** ("ghost" notes, without touching the beams): the sensor is too sensitive for the venue. Lower the **Sensor Gain** (⚙ > Harp settings > System), for example to about 50, then store it. Tick "Common to all songs": this setting depends on the venue, not the song.
 - **A note is stuck**: 🛑 **Panic** (or Esc). It also cuts notes held by the pedal.
 - **The harp does not respond**: check it is on and connected by USB; the page shows when it cannot be reached.
 - **No sound on the tablet**: tap 🔇 at the top of the page, and check silent mode.

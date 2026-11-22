@@ -1653,9 +1653,10 @@ class Runtime:
     # ------------------------------------------------------- morceau Gamme
 
     def _assure_gamme(self) -> None:
-        """Cree le morceau "Gamme" s'il manque : 9 rayons, chacun jouant la note
-        envoyee par la harpe (gamme chromatique a partir de do4). A la fin de la
-        liste, pour ne decaler aucun numero."""
+        """Cree le morceau "Gamme" s'il manque : chaque rayon joue la note envoyee
+        par la harpe (gamme chromatique a partir de do4), avec l'aspect des
+        reglages d'usine de la harpe (REGLAGES_GAMME : 13 rayons, gain adouci).
+        A la fin de la liste, pour ne decaler aucun numero."""
         if any(p.gamme for p in self.bank.presets):
             return
         nom = "Gamme"
@@ -1663,8 +1664,10 @@ class Runtime:
         while nom in self.bank.names:
             nom = f"Gamme ({n})"
             n += 1
-        preset = Preset(name=nom, beam_count=9, gamme=True,
-                        beams=[Beam(index=i, incoming_note=59 + i, note=59 + i) for i in range(1, 10)])
+        from .harp_settings import REGLAGES_GAMME
+        rayons = 5 + REGLAGES_GAMME["rayons"]
+        preset = Preset(name=nom, beam_count=None, gamme=True, harp_snapshot=dict(REGLAGES_GAMME),
+                        beams=[Beam(index=i, incoming_note=59 + i, note=59 + i) for i in range(1, rayons + 1)])
         self.bank.presets.append(preset)
         self._save(preset)
 

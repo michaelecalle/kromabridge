@@ -243,3 +243,15 @@ def write_all(donnees: list[int]) -> list[int]:
 def check_preset(n: int) -> None:
     """Refuse un numero de preset hors de 1..40."""
     _check_preset(n)
+
+
+# Aspect de la harpe du morceau "Gamme" d'une installation neuve : les reglages
+# d'usine de la harpe (Load Defaults, firmware 1.440, lus le 22/11/2026 : 13 rayons),
+# avec un gain du capteur plus bas (50 au lieu de 100), sinon la harpe detecte des
+# notes fantomes des l'ouverture.
+REGLAGES_GAMME = {"gain": 25, "mode_r": 1, "mode_v": 2, "mode_b": 4, "puissance_r": 100, "puissance_v": 100,
+                  "puissance_b": 100, "ttl": 0, "main": 0, "pedale_analogique": 0, "tout_module": 0,
+                  "pedale_1": 0, "pedale_2": 1, "pedale_3": 2, "pedale_4": 3, "transposition": 0, "octave": 3,
+                  "rayons": 8, "balayage": 40, "largeur": 40, "delai": 15, "z_profondeur": 20, "z_mode": 0,
+                  "z_decalage": 50, "miroir": 0, "auto_couleur": 0, "mod_vitesse": 44, "mod_profondeur": 85,
+                  "mod_phase": 0, "rideau": 0}
